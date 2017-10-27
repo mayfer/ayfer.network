@@ -39,7 +39,7 @@ var App = function(elem, options) {
         ctx.fill();
 
         self.lines.forEach(function(line) {
-            var y = self.moon.center.y + 200 + (line.index * 30);
+            var y = self.moon.center.y + 150 + (Math.pow(line.index+3, 2) * 1);
             self.draw_waveline(y, line);
         });
 
@@ -56,16 +56,17 @@ var App = function(elem, options) {
             var der = 0;
             for(var i=0; i<line.waves.length; i++) {
                 var wave = line.waves[i];
-                der += Math.sin(wave.iter) * Math.sin( (x / (radius*2)) * Math.PI * 2 * (wave.freq / 220)) * wave.amplitude;
-                val += Math.cos(wave.iter) * Math.cos( (x / (radius*2)) * Math.PI * 2 * (wave.freq / 220)) * wave.amplitude;
+                der += Math.cos(wave.iter) * Math.sin( (x / (radius*2)) * Math.PI * 2 * (wave.freq / 220)) * wave.amplitude;
+                val += Math.sin(wave.iter) * Math.cos( (x / (radius*2)) * Math.PI * 2 * (wave.freq / 220)) * wave.amplitude;
                 wave.iter += wave.adjusted_freq;
             }
 
             var opacity = der / 10;
+            var size = Math.max(0, (der) * 2/Math.sqrt(Math.abs(line.index - 10)));
             ctx.fillStyle = 'rgba(255, 255, 255, '+opacity+')';
             //ctx.lineTo(pos.x - x, pos.y + val);
             ctx.beginPath();
-            ctx.arc(pos.x - x, pos.y + val*2, 2, Math.PI*0, Math.PI * 2, false);
+            ctx.arc(pos.x - x, pos.y + val*2, size, Math.PI*0, Math.PI * 2, false);
             ctx.fill();
         }
     }
@@ -91,7 +92,7 @@ var App = function(elem, options) {
             wave.amplitude = 2;
         }
         wave.iter = Math.random() * Math.PI * 2;
-        wave.adjusted_freq = wave.freq/1100000;
+        wave.adjusted_freq = wave.freq/2200000;
     }
 
     self.resize = function() {
@@ -100,14 +101,14 @@ var App = function(elem, options) {
                 x: ctx.width/4,
                 y: ctx.height/4,
             },
-            size: ctx.width/40,
+            size: 30,
         }
         var base_freq = 220;
         self.lines = [];
         for(var j=0; j<20; j+= 1) {
             var waves = [];
             for(var i=0; i<4; i+= 1) {
-                var wave = new self.wave(base_freq * i);
+                var wave = new self.wave(base_freq * (i + Math.random()));
                 waves.push(wave);
             }
             self.lines.push({waves: waves, index: j});
