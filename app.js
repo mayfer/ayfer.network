@@ -15,7 +15,7 @@ var App = function(elem, options) {
 
     self.canvas = Canvas(elem);
     self.ctx = self.canvas.getContext("2d");
-    self.blinkframe = 1;
+    self.eyesize = 1;
 
     var ctx = self.ctx; // shortcut
 
@@ -31,11 +31,21 @@ var App = function(elem, options) {
         ctx.clearRect(0, 0, ctx.width, ctx.height);
     };
     
-    self.render = function() {
+    self.render = function(iter) {
         self.reset();
+
+        if(self.blinking) {
+            self.blinkframe += Math.PI/10;
+            self.eyesize = Math.pow(Math.abs(Math.cos(self.blinkframe)), 4);
+            if(self.blinkframe > Math.PI) {
+                self.blinking = false;
+                self.eyesize = 1;
+            }
+        }
+        
         ctx.fillStyle = '#fff';
         ctx.beginPath();
-        ctx.ellipse(self.moon.center.x, self.moon.center.y, self.moon.size, self.moon.size/self.blinkframe, 0, 0, Math.PI*2)
+        ctx.ellipse(self.moon.center.x, self.moon.center.y, self.moon.size, self.moon.size * self.eyesize, 0, 0, Math.PI*2)
         //ctx.arc(self.moon.center.x, self.moon.center.y, self.moon.size, 0, Math.PI*2, true); 
         ctx.closePath();
         ctx.fill();
@@ -44,11 +54,11 @@ var App = function(elem, options) {
             var y = self.moon.center.y + 200 + (line.index * 30);
             self.draw_waveline(y, line);
         });
-
     };
 
-    self.blink = function(frame) {
-
+    self.blink = function() {
+        self.blinkframe = 0;
+        self.blinking = true;
     }
 
     self.draw_waveline = function(y, line) {
@@ -70,7 +80,7 @@ var App = function(elem, options) {
                 wave.iter += wave.adjusted_freq;
             }
             var xdiff = (radius - Math.abs(x)) / radius;
-            var opacity = xdiff * (0.2 + der / 5);
+            var opacity = xdiff * (0.2 + der / 5) * self.eyesize;
             ctx.fillStyle = 'rgba(255, 255, 255, '+opacity+')';
             ctx.strokeStyle = ctx.fillStyle;
             ctx.beginPath();
@@ -85,7 +95,7 @@ var App = function(elem, options) {
         iter += 1;
 
         window.requestAnimationFrame(function() {
-            self.render();
+            self.render(iter);
             self.animate(iter);
         });
     };
@@ -135,6 +145,12 @@ var App = function(elem, options) {
         self.reset();
         self.animate();
 
+        setInterval(function(){
+            self.blink();
+            setTimeout(function() {
+                self.blink();
+            }, 1200*Math.random());
+        }, 6000);
 
     };
 
