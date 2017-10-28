@@ -15,6 +15,7 @@ var App = function(elem, options) {
 
     self.canvas = Canvas(elem);
     self.ctx = self.canvas.getContext("2d");
+    self.blinkframe = 1;
 
     var ctx = self.ctx; // shortcut
 
@@ -34,7 +35,8 @@ var App = function(elem, options) {
         self.reset();
         ctx.fillStyle = '#fff';
         ctx.beginPath();
-        ctx.arc(self.moon.center.x, self.moon.center.y, self.moon.size, 0, Math.PI*2, true); 
+        ctx.ellipse(self.moon.center.x, self.moon.center.y, self.moon.size, self.moon.size/self.blinkframe, 0, 0, Math.PI*2)
+        //ctx.arc(self.moon.center.x, self.moon.center.y, self.moon.size, 0, Math.PI*2, true); 
         ctx.closePath();
         ctx.fill();
 
@@ -44,6 +46,10 @@ var App = function(elem, options) {
         });
 
     };
+
+    self.blink = function(frame) {
+
+    }
 
     self.draw_waveline = function(y, line) {
         var radius = line.width;
@@ -64,7 +70,7 @@ var App = function(elem, options) {
                 wave.iter += wave.adjusted_freq;
             }
             var xdiff = (radius - Math.abs(x)) / radius;
-            var opacity = xdiff * der / 5;
+            var opacity = xdiff * (0.2 + der / 5);
             ctx.fillStyle = 'rgba(255, 255, 255, '+opacity+')';
             ctx.strokeStyle = ctx.fillStyle;
             ctx.beginPath();
@@ -128,6 +134,7 @@ var App = function(elem, options) {
         self.resize();
         self.reset();
         self.animate();
+
 
     };
 
