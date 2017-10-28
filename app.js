@@ -66,8 +66,9 @@ var App = function(elem, options) {
             var xdiff = (radius - Math.abs(x)) / radius;
             var opacity = xdiff * der / 5;
             ctx.fillStyle = 'rgba(255, 255, 255, '+opacity+')';
-            //ctx.lineTo(pos.x - x, pos.y + val);
+            ctx.strokeStyle = ctx.fillStyle;
             ctx.beginPath();
+            ctx.lineTo(pos.x - x, pos.y + val*2);
             ctx.arc(pos.x - x, pos.y + val*2, 2, Math.PI*0, Math.PI * 2, false);
             ctx.fill();
         }
@@ -110,7 +111,7 @@ var App = function(elem, options) {
         for(var j=0; j<20; j+= 1) {
             var waves = [];
             for(var i=0; i<6; i+= 1) {
-                var wave = new self.wave(base_freq * i );
+                var wave = new self.wave(base_freq * i, 0.4 + j/10);
                 waves.push(wave);
             }
             var multiplier = j % 2 == 0 ? (0.5 + Math.random()) : 1;
