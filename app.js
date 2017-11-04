@@ -42,13 +42,17 @@ var App = function(elem, options) {
                 self.eyesize = 1;
             }
         }
-        
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+
+        ctx.save();
+        ctx.shadowBlur = 100;
+        ctx.shadowColor = "#fff";
         ctx.beginPath();
         ctx.ellipse(self.moon.center.x, self.moon.center.y, self.moon.size, self.moon.size * self.eyesize, 0, 0, Math.PI*2)
         //ctx.arc(self.moon.center.x, self.moon.center.y, self.moon.size, 0, Math.PI*2, true); 
         ctx.closePath();
         ctx.fill();
+        ctx.restore();
 
         self.lines.forEach(function(line) {
             var y = self.moon.center.y + 200 + (line.index * 30);
@@ -80,13 +84,15 @@ var App = function(elem, options) {
                 wave.iter += wave.adjusted_freq;
             }
             var xdiff = (radius - Math.abs(x)) / radius;
-            var opacity = xdiff * (0.2 + der / 5) * self.eyesize;
-            ctx.fillStyle = 'rgba(255, 255, 255, '+opacity+')';
-            ctx.strokeStyle = ctx.fillStyle;
-            ctx.beginPath();
-            ctx.lineTo(pos.x - x, pos.y + val*2);
-            ctx.arc(pos.x - x, pos.y + val*2, 2, Math.PI*0, Math.PI * 2, false);
-            ctx.fill();
+            var visibility = Math.max(0, xdiff * (0.2 + der / 5) * self.eyesize);
+            if(visibility > 0) {
+                ctx.fillStyle = 'rgba(255, 255, 255, '+visibility+')';
+                ctx.strokeStyle = ctx.fillStyle;
+                ctx.beginPath();
+                ctx.lineTo(pos.x - x, pos.y + val*2);
+                ctx.arc(pos.x - x, pos.y + val*2, 2, Math.PI*0, Math.PI * 2, false);
+                ctx.fill();
+            }
         }
     }
 
@@ -145,12 +151,9 @@ var App = function(elem, options) {
         self.reset();
         self.animate();
 
-        setInterval(function(){
+        $(document).keydown(function(){
             self.blink();
-            setTimeout(function() {
-                self.blink();
-            }, 1200*Math.random());
-        }, 6000);
+        });
 
     };
 
