@@ -2,6 +2,9 @@
 <html>
     <head>
         <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+        <link href="https://fonts.googleapis.com/css?family=Lora|Marcellus+SC" rel="stylesheet">
+        
+        
         <meta charset="utf-8" />
         <title>ayfer network</title>
         <script src='jquery-1.11.1.min.js'></script>
@@ -20,6 +23,7 @@
             html, body {
                 width: 100%;
                 background: #000;
+                font-family: "Lora", serif;
             }
 
             #wrapper {
@@ -37,11 +41,40 @@
                 display: block;
             }
 
+            #content { position: absolute; top: 19vh; left: 50vw; max-width: 30%; }
+            #title { font-size: 60px; color: #bcbcbc; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); font-family: "Marcellus SC", sans-serif; }
+            .description { font-size: 14px; color: #999; margin-top: 30px; width: 100%; }
+            .description p { padding: 10px 0; }
+            .description ul { list-style-type: square; list-style-position: outside; margin-left: 25px; }
+            .description ul li { padding-bottom: 2px; }
+            
+            #contact { display: inline-block; font-size: 18px; margin-top: 20px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);  }
+
         </style>
     </head>
     <body>
         <div id="wrapper">
             <div id="main">
+            </div>
+            <div id="content">
+                <div id="title">Ayfer Network</div>
+                <div class="description">
+                    <div class="text">
+                        <p style='font-size: 1.2em;'>Serving startups in the SF Bay Area that need a seasoned technologist on
+                        their executive team on a less than full-time basis</p>
+
+                        <p>
+                            <em>Fractional</em> CIO and CTO services, including:
+                            <ul>
+                                <li>Setting up technology services for a startup properly</li>
+                                <li>Information security strategy that makes sense</li>
+                                <li>Cloud strategy for high performance computing, especially in
+                            biotechnology use cases</li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div id="contact">contact@ayfer.network</div>
+                </div>
             </div>
         </div>
     </body>

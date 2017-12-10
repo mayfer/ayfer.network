@@ -19,6 +19,8 @@ var App = function(elem, options) {
 
     var ctx = self.ctx; // shortcut
 
+    var alt_pos;
+
     if(options === undefined) { options = {}; }
     self.options = extend({
         resizeWithWindow: true,
@@ -56,7 +58,12 @@ var App = function(elem, options) {
 
         self.lines.forEach(function(line) {
             var y = self.moon.center.y + 200 + (line.index * 30);
-            self.draw_waveline(y, line);
+            self.draw_waveline(self.moon.center.x, y, line);
+        });
+
+        self.lines_alt.forEach(function(line) {
+            var y = alt_pos.bottom + (line.index * 30);
+            self.draw_waveline(alt_pos.left + alt_pos.width/2, y+8, line);
         });
     };
 
@@ -65,10 +72,10 @@ var App = function(elem, options) {
         self.blinking = true;
     }
 
-    self.draw_waveline = function(y, line) {
+    self.draw_waveline = function(x, y, line) {
         var radius = line.width;
         var pos = {
-            x: self.moon.center.x,
+            x: x,
             y: y,
         }
         for(var x = -radius; x <= radius; x+=2) {
@@ -121,6 +128,7 @@ var App = function(elem, options) {
     }
 
     self.resize = function() {
+        setCanvasSize(self.canvas, window.outerWidth, window.outerHeight);
         self.moon = {
             center: {
                 x: ctx.width/4,
@@ -143,6 +151,23 @@ var App = function(elem, options) {
                 width: 60 + j * 10 * multiplier,
             });
         }
+
+        var base_freq = 220;
+        self.lines_alt = [];
+        for(var j=0; j<1; j+= 1) {
+            var waves = [];
+            for(var i=0; i<6; i+= 1) {
+                var wave = new self.wave(base_freq * i, 0.7);
+                waves.push(wave);
+            }
+            var multiplier = j % 2 == 0 ? (0.5 + Math.random()) : 1;
+            self.lines_alt.push({
+                waves: waves,
+                index: j,
+                width: document.getElementById('contact').getBoundingClientRect().width/2,
+            });
+        }
+        alt_pos = document.getElementById('contact').getBoundingClientRect();
     };
 
     self.init = function() {
@@ -152,8 +177,10 @@ var App = function(elem, options) {
         self.animate();
 
         $(document).keydown(function(){
-            self.blink();
+            //self.blink();
         });
+
+        $(window).on('resize', self.resize);
 
     };
 
