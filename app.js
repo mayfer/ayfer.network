@@ -128,7 +128,7 @@ var App = function(elem, options) {
     }
 
     self.resize = function() {
-        setCanvasSize(self.canvas, window.outerWidth, window.outerHeight);
+        setCanvasSize(self.canvas, window.innerWidth, window.innerHeight);
         self.moon = {
             center: {
                 x: ctx.width/4,
