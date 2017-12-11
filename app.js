@@ -16,6 +16,7 @@ var App = function(elem, options) {
     self.canvas = Canvas(elem);
     self.ctx = self.canvas.getContext("2d");
     self.eyesize = 1;
+    self.blinkelem = $('#title');
 
     var ctx = self.ctx; // shortcut
 
@@ -65,10 +66,14 @@ var App = function(elem, options) {
             var y = alt_pos.bottom + (line.index * 30);
             self.draw_waveline(alt_pos.left + alt_pos.width/2, y+8, line);
         });
+
+        self.blinkelem.css('opacity', self.eyesize)
     };
 
     self.blink = function() {
-        self.blinkframe = 0;
+        if(!self.blinking) {
+            self.blinkframe = 0;
+        }
         self.blinking = true;
     }
 
@@ -137,6 +142,12 @@ var App = function(elem, options) {
             size: ctx.width/40,
         }
         alt_pos = document.getElementById('contact').getBoundingClientRect();
+        if(document.documentElement.scrollTop) {
+            alt_pos.top += document.documentElement.scrollTop;
+            alt_pos.bottom += document.documentElement.scrollTop;
+            alt_pos.left += document.documentElement.scrollLeft;
+            alt_pos.right += document.documentElement.scrollLeft;
+        }
     };
 
     self.init = function() {
@@ -177,8 +188,8 @@ var App = function(elem, options) {
         self.reset();
         self.animate();
 
-        $(document).keydown(function(){
-            //self.blink();
+        $(document).on('keydown click', function(){
+            self.blink();
         });
 
         $(window).on('resize', self.resize);
