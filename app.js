@@ -152,7 +152,7 @@ var App = function(elem, options) {
             });
         }
 
-        var base_freq = 440;
+        var base_freq = 200;
         self.lines_alt = [];
         for(var j=0; j<1; j+= 1) {
             var waves = [];
@@ -164,7 +164,7 @@ var App = function(elem, options) {
             self.lines_alt.push({
                 waves: waves,
                 index: j,
-                width: document.getElementById('contact').getBoundingClientRect().width/2,
+                width: document.getElementById('contact').getBoundingClientRect().width/1.5,
             });
         }
         alt_pos = document.getElementById('contact').getBoundingClientRect();
