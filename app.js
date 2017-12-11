@@ -152,12 +152,12 @@ var App = function(elem, options) {
             });
         }
 
-        var base_freq = 220;
+        var base_freq = 440;
         self.lines_alt = [];
         for(var j=0; j<1; j+= 1) {
             var waves = [];
             for(var i=0; i<6; i+= 1) {
-                var wave = new self.wave(base_freq * i, 0.7);
+                var wave = new self.wave(base_freq * i, 1);
                 waves.push(wave);
             }
             var multiplier = j % 2 == 0 ? (0.5 + Math.random()) : 1;
@@ -184,6 +184,8 @@ var App = function(elem, options) {
 
     };
 
-    self.init();
+    $(document).ready(function() {
+        self.init();
+    });
     return self;
 };
