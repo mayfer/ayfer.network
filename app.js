@@ -62,10 +62,12 @@ var App = function(elem, options) {
             self.draw_waveline(self.moon.center.x, y, line);
         });
 
+        /*
         self.lines_alt.forEach(function(line) {
             var y = alt_pos.bottom + (line.index * 30);
             self.draw_waveline(alt_pos.left + alt_pos.width/2, y+8, line);
         });
+        */
 
         self.blinkelem.css('opacity', self.eyesize)
     };
