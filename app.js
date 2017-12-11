@@ -136,6 +136,11 @@ var App = function(elem, options) {
             },
             size: ctx.width/40,
         }
+        alt_pos = document.getElementById('contact').getBoundingClientRect();
+    };
+
+    self.init = function() {
+
         var base_freq = 220;
         self.lines = [];
         for(var j=0; j<20; j+= 1) {
@@ -167,10 +172,6 @@ var App = function(elem, options) {
                 width: document.getElementById('contact').getBoundingClientRect().width/1.5,
             });
         }
-        alt_pos = document.getElementById('contact').getBoundingClientRect();
-    };
-
-    self.init = function() {
 
         self.resize();
         self.reset();
