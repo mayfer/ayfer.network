@@ -58,7 +58,7 @@ var App = function(elem, options) {
         ctx.restore();
 
         self.lines.forEach(function(line) {
-            var y = self.moon.center.y + 200 + (line.index * 30);
+            var y = self.moon.center.y + 200 + (Math.pow(line.index, 1.4) * 10);
             self.draw_waveline(self.moon.center.x, y, line);
         });
 
@@ -190,8 +190,10 @@ var App = function(elem, options) {
         self.reset();
         self.animate();
 
-        $(document).on('keydown click', function(){
-            self.blink();
+        $(document).on('click touchstart', function(e){
+            if(e.clientX < ctx.width / 2) {
+                self.blink();
+            }
         });
 
         $(window).on('resize', self.resize);

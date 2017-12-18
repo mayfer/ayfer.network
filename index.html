@@ -2,7 +2,7 @@
 <html>
     <head>
         <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-        <link href="https://fonts.googleapis.com/css?family=Lora|Marcellus+SC" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Marcellus+SC" rel="stylesheet">
         
         
         <meta charset="utf-8" />
@@ -16,6 +16,14 @@
 
                 window.app = new App($('#main').get(0));
 
+                $('.tabs .tab').on('click', function(e){
+                    var tabname = $(this).text().trim();
+                    $('.tabs .tab').removeClass('selected');
+                    $(this).addClass('selected');
+                    $('.text').removeClass('selected');
+                    $('.text.'+tabname).addClass('selected');
+                });
+
             });
         </script>
         <style>
@@ -25,7 +33,7 @@
                 height: 100%;
                 min-width: 800px;
                 background: #000;
-                font-family: "Lora", serif;
+                font-family: "Open Sans", serif;
             }
 
             #wrapper {
@@ -50,9 +58,15 @@
             .description p { padding: 10px 0; }
             .description ul { list-style-type: square; list-style-position: outside; margin-left: 25px; }
             .description ul li { padding-bottom: 2px; line-height: 1.4em; padding-bottom: 5px; }
+
+            .text { display: none; }
+            .text.selected { display: block; }
             
             #contact { display: inline-block; border-bottom: 1px solid #666; font-size: 18px; margin-top: 20px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);  }
 
+            .tabs { text-align: center; }
+            .tabs .tab { cursor: pointer; display: inline-block; line-height: 30px; padding: 0 10px; background: #222; }
+            .tabs .tab.selected { background: #bcbcbc; color: #333; }
         </style>
     </head>
     <body>
@@ -62,7 +76,21 @@
             <div id="content">
                 <div id="title">Ayfer Network</div>
                 <div id="description" class="description">
-                    <div class="text">
+                    <div class="tabs">
+                        <div class='tab selected'>
+                            Home
+                        </div>
+                        <div class='tab'>
+                            Services
+                        </div>
+                        <div class='tab'>
+                            Clients
+                        </div>
+                        <div class='tab'>
+                            About
+                        </div>
+                    </div>
+                    <div class="text Home selected">
                         <p style='font-size: 1.2em;'>Serving startups in the SF Bay Area that need a seasoned technologist on
                         their executive team on a less than full-time basis</p>
 
@@ -75,6 +103,12 @@
                             biotechnology use cases</li>
                             </ul>
                         </p>
+                    </div>
+                    <div class="text Services">
+                    </div>
+                    <div class="text Clients">
+                    </div>
+                    <div class="text About">
                     </div>
                     <div id="contact">contact@ayfer.network</div>
                 </div>
