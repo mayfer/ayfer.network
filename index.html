@@ -52,9 +52,9 @@
                 display: block;
             }
 
-            #content { position: absolute; top: 19%; left: 50%; max-width: 30%; }
+            #content { position: absolute; top: 19%; left: 50%; max-width: 30%; margin-bottom: 100px; }
             #title { font-size: 60px; color: #bcbcbc; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); font-family: "Marcellus SC", sans-serif; }
-            .description { font-size: 14px; color: #999; margin-top: 30px; width: 100%; line-height: 2em; }
+            .description { font-size: 14px; color: #999; margin-top: 30px; width: 100%;  line-height: 22px; }
             .description p { padding: 10px 0; }
             .description ul { list-style-type: square; list-style-position: outside; margin-left: 25px; }
             .description ul li { padding-bottom: 2px; line-height: 1.4em; padding-bottom: 5px; }
@@ -64,9 +64,14 @@
             
             #contact { display: inline-block; border-bottom: 1px solid #666; font-size: 18px; margin-top: 20px; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);  }
 
-            .tabs { text-align: center; }
-            .tabs .tab { cursor: pointer; display: inline-block; line-height: 30px; padding: 0 10px; background: #222; }
+            .tabs { margin: 40px 0 10px 0; }
+            .tabs .tab { cursor: pointer; display: inline-block; line-height: 30px; border-bottom: 1px solid #777; padding: 0 10px; border-top-right-radius: 5px; border-top-left-radius: 5px; }
             .tabs .tab.selected { background: #bcbcbc; color: #333; }
+            
+            .bigger { font-weight: bold; color: #bcbcff; }
+
+            .icon { display: inline-block; height: 18px; line-height: 22px; vertical-align: bottom; margin-right: 5px; }
+            
         </style>
     </head>
     <body>
@@ -91,26 +96,58 @@
                         </div>
                     </div>
                     <div class="text Home selected">
-                        <p style='font-size: 1.2em;'>Serving startups in the SF Bay Area that need a seasoned technologist on
-                        their executive team on a less than full-time basis</p>
+                        <p style='font-size: 1.1em;'>Serving <span class="bigger">startups</span> in the <span class="bigger">SF Bay Area</span> that need one more seasoned technologist on
+                        their team, without creating another full-time position</p>
 
                         <p>
-                            <em>Fractional</em> CIO and CTO services, including:
-                            <ul>
-                                <li>Setting up technology services for a startup properly</li>
-                                <li>Information security strategy that makes sense</li>
-                                <li>Cloud strategy for high performance computing, especially in
-                            biotechnology use cases</li>
-                            </ul>
+                            Offering <span class="bigger">fractional CIO and CTO</span> services, including:
                         </p>
+                        <ul>
+                            <li>Setting up a technology infrastructure properly</li>
+                            <li>Protecting intellectual property with a level of cybersecurity attention that makes sense</li>
+                            <li>Building a cloud strategy for high performance computing, especially in
+                            biotechnology use cases</li>
+                            <li>Providing access to a trusted network of service providers for all IT needs</li>
+                        </ul>
                     </div>
                     <div class="text Services">
+                        <p>We can help you get your startup off the ground</p>
+                        <ul>
+                         <li>Technology infrastructure for a new facility</li>
+                         <li>Collaboration environment that matches your startup culture</li>
+                         <li>Foundational policies, training and compliance</li>
+                        </ul>
+
+                        <p>We provide technology guidance supporting the development, marketing
+                        and sale of your products</p>
+                        <ul>
+                         <li>Cloud infrastructure for compute intensive products (e.g. next
+                         generation sequencing pipelines)</li>
+                         <li>Customer facing portal</li>
+                         <li>Devops culture for software teams</li>
+                         <li>Automation in various forms</li>
+                        </ul>
+
+                        <p>We connect you to the right people</p>
+                        <ul>
+                         <li>Connections to trusted network of experts and vendors</li>
+                         <li>Trusted relationship with a managed service provider for
+                         day-to-day IT needs</li>
+                         <li>Building an internal IT team when the time is right</li>
+                        </ul>
+
+                        <p>We will draw your attention towards information security</p>
+                        <ul>
+                         <li>Weaved into all of our service offerings</li>
+                         <li>Help with finding the most appropriate amount of investment in
+                         this area</li>
+                        </ul>
                     </div>
                     <div class="text Clients">
                     </div>
                     <div class="text About">
                     </div>
-                    <div id="contact">contact@ayfer.network</div>
+                    <div id="contact"><img src='./email.svg' class='icon' /> contact@ayfer.network</div>
                 </div>
             </div>
         </div>
